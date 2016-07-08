@@ -17,6 +17,9 @@
     "dotenv": "2.0.0",
     "amqplib": "^0.4.2"
   },
+  "dependencies": {
+    "co": "4.6.0"
+  },
   "directories": {
     "test": "test"
   },
