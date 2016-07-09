@@ -26,6 +26,12 @@ module.exports = class AMQPQueueTest extends Queue {
     console.log('AMQPQueueTest.onClose:', 'Channel closed')
   }
 
+  get bindings() {
+    return [{
+      source: "AMQPExchangeTest"
+    }]
+  }
+
   get consumeOptions() {
     return {
       exclusive: true
@@ -33,6 +39,7 @@ module.exports = class AMQPQueueTest extends Queue {
   }
 
   * consume(msg) {
-    console.log('AMQPQueueTest:consume', msg.toString())
+    console.log('AMQPQueueTest:consume', msg.content.toString())
+    yield this.ack(msg)
   }
 }
