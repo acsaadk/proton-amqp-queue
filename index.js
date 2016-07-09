@@ -38,8 +38,21 @@ module.exports = class AMQPQueue {
   }
 
 /**
+  * @method customName
+  * @description This method can be overriden to set a specific name for the queue.
+  * A tipical use case could be to use the object with an existing queue.
+  * @returns undefined or any falsey value to indicate that the name should be
+  * the class's name, otherwise it must return a string with the desired name. If
+  * the returned value is an empty string, the AMQP server will generate a random
+  * name for the queue
+*/
+  static get customName() {
+    return undefined
+  }
+
+/**
   * @method options
-  * @description This method can be overriden to specify a JSON with options for creating the exchange.
+  * @description This method can be overriden to specify a JSON with options for creating the queue.
   * For more info, check: http://www.squaremobius.net/amqp.node/channel_api.html#channel_assertQueue
   * @returns undefined by default, otherwise it must return a JSON
   * @author Antonio Saad
@@ -50,7 +63,7 @@ module.exports = class AMQPQueue {
 
 /**
   * @method beforeCreateChannel
-  * @description Invoked before creating the channel for this exchange
+  * @description Invoked before creating the channel for this queue
   * @param conn Object Connection to the AMQP server.
   * WARNING: This connection is the underlying socket shared between all the
   * created channels, so any change will affect all channels
@@ -91,8 +104,8 @@ module.exports = class AMQPQueue {
 
 /**
   * @method name
-  * @description Exchange's name. It'll be the name of the child class
-  * @returns string containing the exchange's name
+  * @description Queue's name. It'll be the name of the child class
+  * @returns string containing the queue's name
   * @author Antonio Saad
 */
   get name() {
